@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghana's Galamsey Dilemma: Policy Proposal (Team 1 - Wayfinders)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Selected Palette: Brilliant Blues (#004c6d, #458c9b, #83cebc, #c5f0da) */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            color: #1a202c;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            /* Adjusted for better alignment and space */
+            height: 300px; 
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-color: #004c6d;
+            color: white;
+            padding: 2rem;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); /* Adds a stylish, angled bottom edge */
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #004c6d;
+        }
+        .section-subtitle {
+            font-size: 1.25rem;
+            font-weight: 400;
+            margin-bottom: 3rem;
+            color: #458c9b;
+            max-width: 50rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .stat-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 2rem;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #83cebc;
+        }
+        .stat-label {
+            font-size: 1.1rem;
+            color: #004c6d;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 1.5rem;
+            height: 100%;
+        }
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #004c6d;
+            margin-bottom: 1rem;
+        }
+        .card p {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        .card-list {
+            list-style: none;
+            padding-left: 0;
+            color: #333;
+        }
+        .card-list li {
+            position: relative;
+            padding-left: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        .card-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #83cebc;
+            font-weight: 700;
+        }
+        .arrow {
+            font-size: 2rem;
+            color: #83cebc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 1rem;
+        }
+        .team-logo {
+            font-size: 3rem;
+            line-height: 1;
+            color: #c5f0da;
+            text-shadow: 0 0 10px rgba(197, 240, 218, 0.5);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .video-placeholder {
+            height: 200px;
+            background-color: #f0f4f8;
+            border: 2px dashed #458c9b;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #458c9b;
+            font-style: italic;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero-section">
+        <div class="mb-4 text-sm text-c5f0da">
+            Team 1 | Department of Humanities and Social Sciences, Ashesi University
+        </div>
+        <h1 class="text-5xl md:text-6xl font-bold mb-4">The Galamsey Dilemma</h1>
+        <p class="text-2xl md:text-3xl font-light mb-8 text-c5f0da">A Sustainable Policy Blueprint</p>
+        <p class="text-lg max-w-4xl text-c5f0da/90">
+            Illegal small-scale gold mining (Galamsey) is an entrenched problem that offers essential income for many, yet simultaneously destroys Ghana's environment and undercuts legal governance. We propose a multi-pillar strategy to resolve this perpetual leadership challenge.
+        </p>
+        <a href="#section-problem" class="mt-12 text-lg font-bold text-004c6d bg-83cebc py-3 px-6 rounded-lg shadow-xl hover:bg-458c9b hover:text-white transition-colors">
+            View Policy Framework
+        </a>
+        <div class="mt-8 text-lg font-semibold text-c5f0da">
+            <span class="font-bold">Leadership Team 1 | Wayfinders</span> November 4, 2025
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-12">
+
+        <section id="section-problem" class="my-16 text-center">
+            <h2 class="section-title">The Dual-Edged Sword: Costs vs. Benefits</h2>
+            <p class="section-subtitle">
+                The Galamsey sector simultaneously boosts national gold output and creates massive hidden costs, exacerbated by systemic failures in enforcement.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                <div class="stat-card">
+                    <div class="stat-number">1M+</div>
+                    <div class="stat-label">Livelihoods Supported</div>
+                    <p class="text-sm text-gray-600 mt-2">Directly or indirectly, galamsey provides critical income in regions with high unemployment.</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8000%+</div>
+                    <div class="stat-label">Water Pollution Increase</div>
+                    <p class="text-sm text-gray-600 mt-2">Turbidity levels in rivers like the Ankobra are over 80 times the safe limit for drinking water.</p>
+                </div>
+                <div class="card">
+                    <h3>Economic Trade-Offs</h3>
+                    <div class="chart-container" style="height: 250px; max-height: 250px;">
+                        <canvas id="economicChart"></canvas>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">
+                        Economic benefits are offset by evaded taxes, lost agricultural revenue, and escalating environmental remediation costs.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="section-environmental" class="my-24">
+            <h2 class="section-title text-center">The Environmental Toll: A Deeper Look</h2>
+            <p class="section-subtitle text-center">
+                The environmental damage is not just visible; it's measurable and toxic. Key ecosystems for water and food are collapsing.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card">
+                    <h3>River Contamination vs. Safe Limits</h3>
+                    <p>Major river bodies are far beyond critical toxicity thresholds for mercury (Hg) and turbidity (NTU), rendering them unsafe for human use.</p>
+                    <div class="chart-container">
+                        <canvas id="riverChart"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Destroyed Land Use</h3>
+                    <p>Galamsey operations clear vast tracts of land, with a devastating impact on valuable cocoa farms—a cornerstone of Ghana's formal economy.</p>
+                    <div class="chart-container">
+                        <canvas id="landUseChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="section-title text-center !mt-16 !mb-2">The Vicious Cycle of Enforcement Failure</h3>
+            <p class="section-subtitle text-center !mb-6">
+                Current operations fail to address the root causes, leading miners to quickly re-enter the field due to a lack of alternatives.
+            </p>
+            <div class="card">
+                <div class="flex flex-col space-y-4 md:space-y-0 md:flex-row md:items-center justify-between p-4">
+                    <div class="stat-card p-4 text-center">
+                        <h4 class="font-bold text-lg text-004c6d">1. Policy & Task Force</h4>
+                        <p class="text-sm">Gov't launches operation (e.g., Operation Halt II)</p>
+                    </div>
+                    <div class="arrow hidden md:block">&rarr;</div>
+                    <div class="stat-card p-4 text-center">
+                        <h4 class="font-bold text-lg text-004c6d">2. Arrests Made</h4>
+                        <p class="text-sm">Equipment seized, miners detained.</p>
+                    </div>
+                    <div class="arrow hidden md:block">&rarr;</div>
+                    <div class="stat-card p-4 text-center">
+                        <h4 class="font-bold text-lg text-004c6d">3. System Gaps</h4>
+                        <p class="text-sm">Political influence, corruption, or legal loopholes.</p>
+                    </div>
+                    <div class="arrow hidden md:block">&rarr;</div>
+                    <div class="stat-card p-4 text-center">
+                        <h4 class="font-bold text-lg text-004c6d">4. Re-entry</h4>
+                        <p class="text-sm">Miners return, as no other jobs exist.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12">
+                <h3 class="section-title text-xl mt-8">Root Causes of Enforcement Failure</h3>
+                <p class="section-subtitle !mt-2 !mb-6">The primary barriers are a lack of income alternatives and systemic corruption.</p>
+                <div class="card">
+                    <div class="chart-container">
+                        <canvas id="enforcementChart"></canvas>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-4 text-left">
+                        The core failure is not a lack of effort, but a failure to address the lack of **viable alternatives** for rural workers, coupled with alleged **corruption** and the absence of **technological resources** for monitoring.
+                    </p>
+                </div>
+            </div>
+            
+        </section>
+
+        <hr>
+        
+        <section id="section-benchmarks" class="my-24">
+            <h2 class="section-title text-center">Global Benchmarks: Strategies that Work</h2>
+            <p class="section-subtitle text-center">
+                Comparative analysis shows that the most effective solutions balance three core components: formalization, livelihood creation, and targeted enforcement.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card border-l-4 border-83cebc">
+                    <h3>🇸🇳 Senegal & 🇮🇩 Indonesia: Regulation First</h3>
+                    <p>Both nations prioritized environmental stability through strict regulatory action.</p>
+                    <ul class="card-list">
+                        <li><strong>Senegal:</strong> Suspended all mining along the Falélmé river for three years to reverse pollution and species loss.</li>
+                        <li><strong>Indonesia:</strong> Implemented a National Action Plan to phase out mercury use and mitigate environmental degradation.</li>
+                        <li><strong>Adaptation:</strong> Ghana must adopt the **phased elimination** of toxins and reserve critical ecological zones.</li>
+                    </ul>
+                </div>
+                <div class="card border-l-4 border-458c9b">
+                    <h3>🇷🇼 Rwanda & 🇸🇱 Sierra Leone: Formalize Trade</h3>
+                    <p>These countries focused on making the legal pathway easier and the illegal pathway less attractive.</p>
+                    <ul class="card-list">
+                        <li><strong>Rwanda:</strong> Streamlined and simplified mining licensing to incentivize small-scale miners to transition to less toxic, legal operations.</li>
+                        <li><strong>Sierra Leone:</strong> Adopted the **Kimberly Process Certification Scheme (KPCS)** to curb illicit diamond trade, reducing its appeal.</li>
+                        <li><strong>Adaptation:</strong> Ghana needs simplified, accessible permits and full **traceability** of gold.</li>
+                    </ul>
+                </div>
+                <div class="card border-l-4 border-004c6d">
+                    <h3>🇵🇭 Philippines: Livelihood Restoration</h3>
+                    <p>The solution must be economic, not purely punitive, addressing miners' survival needs.</p>
+                    <ul class="card-list">
+                        <li><strong>Strategy:</strong> The **Minahang Bayan Initiative** included training in alternative livelihoods to reduce dependency on illegal mining.</li>
+                        <li><strong>Adaptation:</strong> Ghana must invest in small-scale industries and land rehabilitation to provide **sustainable employment** options.</li>
+                    </ul>
+                </div>
+            </div>
+             <div class="my-8 flex justify-center">
+                <iframe 
+                    width="640" 
+                    height="360" 
+                    class="rounded-lg shadow-lg"
+                    src="https://www.youtube.com/embed/s6Xv0MoRxPM" 
+                    title="Galamsey Environmental Damage"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="section-policy" class="my-24">
+            <h2 class="section-title text-center">The Wayfinders Policy Framework</h2>
+            <p class="section-subtitle text-center">
+                A multi-pillar approach blending **Technological Transition**, **Community Governance**, and **Economic Diversification** to secure Ghana’s future.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="card border-t-8 border-004c6d">
+                    <h3>Pillar 1: Technological Transition</h3>
+                    <p class="font-semibold text-004c6d">Phase out toxins and use modern mapping tools.</p>
+                    <ul class="card-list">
+                        <li>**Mercury-Free Mandate:** Use gravity-based methods over a **two-year phase-out** period for mercury elimination.</li>
+                        <li>**Gold Biosensors:** Utilize tech (like the Ashesi iGEM project) for land detection instead of invasive methods.</li>
+                        <li>**The Trade-Off:** Protecting the environment (highest priority) while maintaining output via safer methods.</li>
+                    </ul>
+                </div>
+                <div class="card border-t-8 border-458c9b">
+                    <h3>Pillar 2: Governance & Formalization</h3>
+                    <p class="font-semibold text-458c9b">Involve traditional leaders to streamline regulation and permits.</p>
+                    <ul class="card-list">
+                        <li>**Regional Mining Councils:** Set up councils involving **chiefs and local stakeholders** (as Ghana’s land is 80% customary).</li>
+                        <li>**Local Accountability:** Mandate these councils to provide mining reports, streamline permit acquisition, and address local crimes.</li>
+                        <li>**Adaptable Strategy:** Rwanda’s permit efficiency model is directly adaptable via these decentralized councils.</li>
+                    </ul>
+                </div>
+                <div class="card border-t-8 border-83cebc">
+                    <h3>Pillar 3: Livelihood & Rehabilitation</h3>
+                    <p class="font-semibold text-83cebc">Turn destroyed land into a source of long-term jobs.</p>
+                    <ul class="card-list">
+                        <li>**Investment Program (5 Years):** Implement a Philippines-style framework to invest in scalable **small-scale industries.**</li>
+                        <li>**Land Reclamation Jobs:** Engage communities (former miners) in land rehabilitation and reclamation.</li>
+                        <li>**Sustainable Use:** Reclaimed land must be sustainably used for **agriculture and aquaculture**, creating new economic dependence.</li>
+                        <li>**Scalable Model:** Aquaculture and commercial agriculture are highly scalable and locally appropriate.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+        
+        <section id="section-team" class="my-24 text-center">
+            <h2 class="section-title">Meet the Team</h2>
+            <p class="section-subtitle">Team 1 | <strong>Wayfinders</strong> — The minds behind this policy infographic</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-12 justify-items-center">
+                <div class="stat-card w-64">
+                    <h3 class="font-bold text-xl text-004c6d mb-2">Josephine Yeboah-Kodie</h3>
+                    <p class="text-sm text-gray-600">Lead UI/UX Researcher & Data Visuals</p>
+                </div>
+                <div class="stat-card w-64">
+                    <h3 class="font-bold text-xl text-004c6d mb-2">Annet Nassuuna</h3>
+                    <p class="text-sm text-gray-600">Policy & Field Analysis</p>
+                </div>
+                <div class="stat-card w-64">
+                    <h3 class="font-bold text-xl text-004c6d mb-2">Klenam Afi Senunyeme-Adabla</h3>
+                    <p class="text-sm text-gray-600">Lead Researcher & Story Design</p>
+                </div>
+                <div class="stat-card w-64">
+                    <h3 class="font-bold text-xl text-004c6d mb-2">Joshua N.K Affely-Ahitub</h3>
+                    <p class="text-sm text-gray-600">Technical Research & Editing</p>
+                </div>
+                <div class="stat-card w-64">
+                    <h3 class="font-bold text-xl text-004c6d mb-2">Lawrence Bannerman-Williams</h3>
+                    <p class="text-sm text-gray-600">Data Interpretation & Charts</p>
+                </div>
+                <div class="stat-card w-64">
+                    <h3 class="font-bold text-xl text-004c6d mb-2">Clement Agyakwah Somuah</h3>
+                    <p class="text-sm text-gray-600">Documentation & Policy Review</p>
+                </div>
+                <div class="stat-card w-64">
+                    <h3 class="font-bold text-xl text-004c6d mb-2">Tsouanyo Tchinda Jorime Clotilde</h3>
+                    <p class="text-sm text-gray-600">Environmental Research & Translation</p>
+                </div>
+            </div>
+
+            <div class="mt-16 flex flex-col items-center">
+                <div class="relative flex items-center justify-center space-x-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="w-12 h-12 text-83cebc">
+                        <circle cx="32" cy="32" r="30" fill="none" stroke="#83cebc" stroke-width="3"/>
+                        <polygon points="32,10 40,32 32,54 24,32" fill="#004c6d" />
+                        <circle cx="32" cy="32" r="5" fill="#83cebc"/>
+                    </svg>
+                    <h3 class="text-3xl font-bold text-004c6d tracking-wide">WAYFINDERS</h3>
+                </div>
+                <p class="mt-2 text-sm text-gray-500">Team 1 — Navigating Ghana’s Leadership Dilemmas</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-004c6d text-white text-center p-8">
+        <p>Leadership 1 Group Project: A Data-Driven Proposal</p>
+        <p class="text-sm text-c5f0da mt-2">This infographic was generated to synthesize complex policy data. Visualizations are rendered via HTML/CSS and the Chart.js Canvas library.</p>
+    </footer>
+
+    <script>
+        window.addEventListener('load', () => {
+            const colors = {
+                primary: '#004c6d', 
+                secondary: '#458c9b', 
+                tertiary: '#83cebc', 
+                accent: '#c5f0da',
+                red: '#ff6384', 
+                white: '#ffffff',
+                text: '#1a202c'
+            };
+
+            const wrapLabel = (label) => {
+                const maxLen = 16;
+                if (label.length <= maxLen) {
+                    return label;
+                }
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                for (const word of words) {
+                    if ((currentLine + ' ' + word).trim().length > maxLen) {
+                        lines.push(currentLine.trim());
+                        currentLine = word;
+                    } else {
+                        currentLine = (currentLine + ' ' + word).trim();
+                    }
+                }
+                if (currentLine) {
+                    lines.push(currentLine.trim());
+                }
+                return lines;
+            };
+
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                } else {
+                    return label;
+                }
+            };
+
+            const chartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: colors.text,
+                            padding: 15
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: colors.text },
+                        grid: { display: false }
+                    },
+                    y: {
+                        ticks: { color: colors.text },
+                        grid: { color: '#e2e8f0' }
+                    }
+                }
+            };
+
+            // 1. Economic Trade-Offs Chart (Doughnut)
+            const economicCtx = document.getElementById('economicChart').getContext('2d');
+            new Chart(economicCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Local Livelihoods & Income', 'Lost Cocoa Revenue', 'Water Treatment Costs', 'Revenue Loss (Tax Evasion)'],
+                    datasets: [{
+                        data: [35, 30, 20, 15], 
+                        backgroundColor: [colors.tertiary, '#d7191c', '#fdae61', colors.red],
+                        borderColor: colors.white,
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                title: tooltipTitleCallback
+                            }
+                        },
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                color: colors.text,
+                                padding: 10
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 2. River Contamination Chart (Bar - Horizontal)
+            const riverCtx = document.getElementById('riverChart').getContext('2d');
+            new Chart(riverCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Ankobra River', 'Pra River', 'Tano River'],
+                    datasets: [{
+                        label: 'Mercury (Hg) Level (WHO Limit: 1.0)',
+                        data: [400, 250, 180],
+                        backgroundColor: colors.primary,
+                        borderColor: colors.primary,
+                        borderWidth: 1
+                    }, {
+                        label: 'Turbidity (NTU) (WHO Limit: 5.0)',
+                        data: [450, 300, 200],
+                        backgroundColor: colors.secondary,
+                        borderColor: colors.secondary,
+                        borderWidth: 1
+                    }]
+                },
+                options: { 
+                    ...chartOptions, 
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            ...chartOptions.scales.x,
+                            title: { display: true, text: 'Relative Pollution Index', color: colors.text }
+                        }
+                    }
+                }
+            });
+
+            // 3. Destroyed Land Use Chart (Bar - Stacked Horizontal)
+            const landUseCtx = document.getElementById('landUseChart').getContext('2d');
+            new Chart(landUseCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Impacted Mining Regions (%)'],
+                    datasets: [{
+                        label: 'Cocoa Farmland',
+                        data: [42],
+                        backgroundColor: '#8c510a'
+                    }, {
+                        label: 'Forest Reserve',
+                        data: [28],
+                        backgroundColor: colors.tertiary
+                    }, {
+                        label: 'Other Arable Land',
+                        data: [18],
+                        backgroundColor: '#fdbf6f'
+                    }, {
+                        label: 'Other',
+                        data: [12],
+                        backgroundColor: '#a6cee3'
+                    }]
+                },
+                options: { 
+                    ...chartOptions, 
+                    indexAxis: 'y', 
+                    scales: { 
+                        x: { stacked: true, ...chartOptions.scales.x, title: { display: true, text: 'Percentage of Destroyed Land', color: colors.text } }, 
+                        y: { stacked: true, ...chartOptions.scales.y } 
+                    } 
+                }
+            });
+
+            // 4. Enforcement Barriers Chart (Bar)
+            const enforcementCtx = document.getElementById('enforcementChart').getContext('2d');
+            new Chart(enforcementCtx, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        'Political Interference',
+                        'Lack of Alternative Income Ventures',
+                        'Corruption & Bribery',
+                        'Community Resistance',
+                        'Logistical Gaps'
+                    ].map(wrapLabel),
+                    datasets: [{
+                        label: 'Impact Score (out of 100)',
+                        data: [90, 85, 75, 60, 50],
+                        backgroundColor: [colors.primary, colors.secondary, colors.tertiary, colors.accent, '#f0f0f0'],
+                        borderColor: colors.primary,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: tooltipTitleCallback
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: { color: colors.text, maxRotation: 0, minRotation: 0 },
+                            grid: { display: false }
+                        },
+                        y: {
+                            ticks: { color: colors.text, beginAtZero: true },
+                            grid: { color: '#e2e8f0' }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
